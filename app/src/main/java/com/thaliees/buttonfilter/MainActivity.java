@@ -4,13 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-
 import com.thaliees.buttonfilter.Adapters.InformationAdapter;
 import com.thaliees.buttonfilter.Adapters.TagAdapter;
 import com.thaliees.buttonfilter.Models.InformationModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         content.setLayoutManager(layoutManager);
 
-        // Initialize our Adapter, and passed our list of data
+        // Initialize our Adapter, and passed our data
         tagAdapter = new TagAdapter(tags);
         informationAdapter = new InformationAdapter(informationList);
 
@@ -85,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             // Obtain the value
             String tagToSearch = (String) v.getTag();
+            // Change color to the other buttons
+            tagAdapter.changeColorAll();
+            // Change color to the button selected
+            v.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             // Is possible that here, you load the new info with the tag indicated
             searchInfoWithTag(tagToSearch);
         }
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // Update the adapter (and information)
+        // Update the adapter (and the information)
         informationAdapter = new InformationAdapter(newInfo);
         content.setAdapter(informationAdapter);
     }

@@ -7,3 +7,7 @@ Creación de una aplicación que muestra noticias; se creará una lista (de boto
 
 ## Button selected.
 Se identifica el botón seleccionado con un color diferente a los demás.
+
+## RecyclerView
+Se mejora el agregar los botones a su arreglo para evitar agregar demasiados.
+* _Bug: Cuando hay más de 5 botones en el RecyclerView, se vuelve a replicar el color de botón seleccionado. { Corregido }

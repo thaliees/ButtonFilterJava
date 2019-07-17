@@ -57,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private void initTags(){
         // Initialize dataset.
         // (This data would usually come from a local content provider or remote server)
-        // For example, we will obtain 4 data (is possible that you use a Model)
-        tags = new String[]{ "ALL", "GENERAL", "MOBILE", "WEB" };
+        // For example, we will obtain 13 data (is possible that you use a Model)
+        tags = new String[]{ "ALL", "GENERAL", "MOBILE", "WEB", "CINEMA", "FAMOUS", "COUNTRY", "CARS",
+                "CITIES", "SONGS", "DEVELOPER", "SOFTWARE", "GAMES" };
     }
 
     private void initInfo(){
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             // Obtain the value
             String tagToSearch = (String) v.getTag();
+            // Change the current position
+            tagAdapter.setCurrentPosition(v.getId());
             // Change color to the other buttons
             tagAdapter.changeColorAll();
             // Change color to the button selected

@@ -15,9 +15,18 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     private View.OnClickListener itemListener;
     private Context context;
     private ArrayList<Button> buttons = new ArrayList<>();
+    private Integer currentPosition = 0;
 
     public TagAdapter(String[] tags) {
         this.tags = tags;
+    }
+
+    public Integer getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(Integer currentPosition) {
+        this.currentPosition = currentPosition;
     }
 
     @NonNull
@@ -34,12 +43,14 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         // Replace the contents of a view for each position
         viewHolder.getTagItem().setText(tags[position]);
-        // Save also the value in your tag to identify when the user click
+        // Save also the value in your tag and id to identify when the user click
         viewHolder.getTagItem().setTag(tags[position]);
-        // Change color to the first button
-        if (position == 0) viewHolder.getTagItem().setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        viewHolder.getTagItem().setId(position);
+        // Change color to the selected button
+        if (position == getCurrentPosition()) viewHolder.getTagItem().setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        else viewHolder.getTagItem().setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
         // Add to the array each button
-        buttons.add(viewHolder.tagItem);
+        if (!existButton(tags[position])) buttons.add(viewHolder.tagItem);
     }
 
     @Override
@@ -49,6 +60,14 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
     public void setItemListener(View.OnClickListener itemListener) {
         this.itemListener = itemListener;
+    }
+
+    private boolean existButton(String tag){
+        if (buttons.isEmpty()) return false;
+        for (Button button: buttons) {
+            if (button.getTag().equals(tag)) return true;
+        }
+        return false;
     }
 
     public void changeColorAll(){
